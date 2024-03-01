@@ -6,17 +6,15 @@ class CadastroAbelhas:
         self.new_window = tk.Toplevel(parent)
         self.new_window.title("Nova Tela")
         self.new_window.geometry("400x300")
-        self.new_window.configure(background="Gray")
+        self.new_window.configure(background="White")
 
-        # Criar o campo de escrita (Entry)
-        self.nome_abelha_label = tk.Label(self.new_window, text="Nome da Abelha:")
-        self.nome_abelha_label.pack()
-
+        self.especie_abelha_label = tk.Label(self.new_window, background="White", text="Espécie:")
+        self.especie_abelha_label.grid(row=0, column=0, padx=10, pady=10, sticky='w')
         self.nome_abelha_entry = tk.Entry(self.new_window)
-        self.nome_abelha_entry.pack()
+        self.nome_abelha_entry.grid(row=0, column=1, padx=10, pady=10)
 
-        # Adicione outros widgets e funcionalidades aqui
 
-        # Exemplo de widget:
-        label = tk.Label(self.new_window, text="This is the new window!")
-        label.pack()
+        self.especie_cientifica_abelha_label = tk.Label(self.new_window, background="White", text="Nome científico:")
+        self.especie_cientifica_abelha_label.grid(row=1, column=0, padx=10, pady=10, sticky='w')
+        self.especie_abelha_entry = tk.Entry(self.new_window)
+        self.especie_abelha_entry.grid(row=1, column=1, padx=10, pady=10)

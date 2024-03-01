@@ -5,7 +5,7 @@ class Application:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Gerenciamento")
-        self.root.configure(background="Gray")
+        self.root.configure(background="White")
         self.root.geometry("800x500")
         self.create_menu()
         self.root.mainloop()
