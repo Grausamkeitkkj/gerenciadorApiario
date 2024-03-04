@@ -21,10 +21,11 @@ class Application:
 
     def chama_cadastro_abelhas(self):
         cadastro_window = cadastroAbelhas(self.root)
-        cadastro_window.mainloop()
+    
 
     def chama_cadastro_caixas(self):
         cadastro_caixa = cadastroCaixas(self.root) 
-        cadastro_caixa.mainloop()
+        
 
 app = Application()
+app.mainloop()
