@@ -20,12 +20,9 @@ class Application:
         self.root.config(menu=menubar)
 
     def chama_cadastro_abelhas(self):
-        cadastro_window = cadastroAbelhas(self.root)
+        cadastroAbelhas(self.root)
     
-
     def chama_cadastro_caixas(self):
-        cadastro_caixa = cadastroCaixas(self.root) 
-        
+        cadastroCaixas(self.root) 
 
 app = Application()
-app.mainloop()
