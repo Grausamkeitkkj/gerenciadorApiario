@@ -1,7 +1,7 @@
 import tkinter as tk
 import tabelas
 from cadastroAbelhas import cadastroAbelhas
-from caixas import cadastroCaixas
+from cadastroCaixas import cadastroCaixas
 
 import tabelas
 

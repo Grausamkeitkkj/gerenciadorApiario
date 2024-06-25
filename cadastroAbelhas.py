@@ -1,5 +1,10 @@
 import tkinter as tk
 import conector
+import tkcalendar
+from tkinter import messagebox
+
+conn = conector.conn
+cursor = conn.cursor()
 
 class cadastroAbelhas:
     def __init__(self, parent):
@@ -23,3 +28,27 @@ class cadastroAbelhas:
         self.localizacao_label.grid(row=2, column=0, padx=10, pady=10, sticky='w')
         self.localizacao_entry = tk.Entry(self.new_window)
         self.localizacao_entry.grid(row=2, column=1, padx=10, pady=10)
+
+        self.data_aquisicao_label = tk.Label(self.new_window, background="White", text="Data de aquisição:")
+        self.data_aquisicao_label.grid(row=3, column=0, padx=10, pady=10, sticky='w')
+        self.data_aquisicao_datepicker = tkcalendar.DateEntry(self.new_window)
+        self.data_aquisicao_datepicker.grid(row=3, column=1, padx=10, pady=10)
+
+        self.salvar_button = tk.Button(self.new_window, text="Salvar", command=self.salvar_dados)
+        self.salvar_button.grid(row=4, column=0, columnspan=2, padx=36, pady=10)
+        self.salvar_button.place(relx=0.5, rely=0.9,relwidth=0.50, relheight=0.15, anchor='center')
+        self.data_aquisicao_datepicker = tkcalendar.DateEntry(self.new_window, date_pattern='dd/mm/yyyy', locale='pt_BR')
+
+    def salvar_dados(self):
+        especie = self.nome_abelha_entry.get()
+        nome_cientifico = self.especie_abelha_entry.get()
+        localizacao = self.localizacao_entry.get()
+        data_aquisicao = self.data_aquisicao_datepicker.get()
+    
+        if not especie or not nome_cientifico or not localizacao or not data_aquisicao:
+            messagebox.showwarning("Aviso","Por favor, complete todos os campos antes de salvar")
+        else:
+            cursor.execute(("INSERT INTO abelhas (especie, nome_cientifico, localizacao, data_aquisicao) VALUES (%s, %s, %s, %s)"),
+                (especie, nome_cientifico, localizacao, data_aquisicao)
+            )
+            conn.commit()

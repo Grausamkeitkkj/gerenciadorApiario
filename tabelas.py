@@ -10,12 +10,15 @@ def criar_tabelas():
             )
         """)
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS abelhas (
-            );
-        """)
+                    CREATE TABLE IF NOT EXISTS abelhas (
+                        id SERIAL PRIMARY KEY,
+                        especie VARCHAR(255),
+                        nome_cientifico VARCHAR(255),
+                        localizacao VARCHAR(255),
+                        data_aquisicao DATE
+                    );
+                """)
         conn.commit()
-        cursor.close()
-        conn.close()
         print("Tabelas criadas com sucesso.")
     except Exception as e:
         print(f"Erro ao criar tabelas: {e}")
