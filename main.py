@@ -1,7 +1,9 @@
 import tkinter as tk
+from tkinter import ttk
 import tabelas
 from cadastroAbelhas import cadastroAbelhas
 from cadastroCaixas import cadastroCaixas
+from tabela_abelha import TreeviewAbelhas
 
 import tabelas
 
@@ -14,6 +16,7 @@ if __name__ == "__main__":
             self.root.title("Gerenciamento")
             self.root.configure(background="White")
             self.root.geometry("800x500")
+            TreeviewAbelhas(self.root)
             self.create_menu()
             self.root.mainloop()
     
@@ -24,7 +27,7 @@ if __name__ == "__main__":
             file_menu.add_command(label="Caixas", command=self.chama_cadastro_caixas)
             menubar.add_cascade(label="Cadastro", menu=file_menu)
             self.root.config(menu=menubar)
-    
+            
         def chama_cadastro_abelhas(self):
             cadastroAbelhas(self.root)
         
