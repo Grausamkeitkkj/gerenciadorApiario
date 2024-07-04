@@ -7,6 +7,10 @@ def criar_tabelas():
         cursor = conn.cursor()
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS caixas (
+                id SERIAL PRIMARY KEY,
+                numero_caixa INTEGER,
+                especie VARCHAR(255),
+                material_caixa VARCHAR(255)
             )
         """)
         cursor.execute("""

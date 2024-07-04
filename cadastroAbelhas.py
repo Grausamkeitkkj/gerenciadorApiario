@@ -2,6 +2,7 @@ import tkinter as tk
 import conector
 import tkcalendar
 from tkinter import messagebox
+from tkinter import ttk
 from tabela_abelha import TreeviewAbelhas
 
 conn = conector.conn
@@ -14,6 +15,8 @@ class cadastroAbelhas:
         self.new_window.title("Cadastro de Abelhas")
         self.new_window.geometry("400x300")
         self.new_window.configure(background="White")
+        self.caixa_options = []
+        self.carrega_dados_combobox()
 
         self.especie_abelha_label = tk.Label(self.new_window, background="White", text="Espécie:")
         self.especie_abelha_label.grid(row=0, column=0, padx=10, pady=10, sticky='w')
@@ -35,10 +38,10 @@ class cadastroAbelhas:
         self.data_aquisicao_datepicker = tkcalendar.DateEntry(self.new_window, date_pattern='dd/mm/yyyy', locale='pt_BR')
         self.data_aquisicao_datepicker.grid(row=3, column=1, padx=10, pady=10)
 
-        self.caixa_label = tk.Label(self.new_window, background="White", text="Caixa:")
-        self.caixa_label.grid(row=4, column=0, padx=10, pady=10, sticky='w')
-        self.caixa_entry = tk.Entry(self.new_window)
-        self.caixa_entry.grid(row=4, column=1, padx=10, pady=10)
+        self.caixa_combobox_label = tk.Label(self.new_window, text="Caixa:", background="White")
+        self.caixa_combobox_label.grid(row=4, column=0, padx=10, pady=10, sticky='w')
+        self.caixa_combobox = ttk.Combobox(self.new_window, values=self.caixa_options)
+        self.caixa_combobox.grid(row=4, column=1, padx=10, pady=10)
 
         self.salvar_button = tk.Button(self.new_window, text="Salvar", command=lambda:[self.salvar_dados(), TreeviewAbelhas(self.parent).carrega_dados_abelha()])
         self.salvar_button.grid(row=4, column=0, columnspan=2, padx=36, pady=10)
@@ -63,3 +66,9 @@ class cadastroAbelhas:
             self.especie_abelha_entry.delete(0, tk.END)
             self.localizacao_entry.delete(0, tk.END)
             self.caixa_entry.delete(0, tk.END)
+
+    def carrega_dados_combobox(self):
+        cursor.execute("SELECT numero_caixa FROM caixas")
+        rows = cursor.fetchall()
+        for row in rows:
+            self.caixa_options.append(row[0])
