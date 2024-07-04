@@ -2,6 +2,7 @@ import tkinter as tk
 import conector
 import tkcalendar
 from tkinter import messagebox
+from tabela_abelha import TreeviewAbelhas
 
 conn = conector.conn
 cursor = conn.cursor()
@@ -39,7 +40,7 @@ class cadastroAbelhas:
         self.caixa_entry = tk.Entry(self.new_window)
         self.caixa_entry.grid(row=4, column=1, padx=10, pady=10)
 
-        self.salvar_button = tk.Button(self.new_window, text="Salvar", command=self.salvar_dados)
+        self.salvar_button = tk.Button(self.new_window, text="Salvar", command=lambda:[self.salvar_dados(), TreeviewAbelhas(self.parent).carrega_dados_abelha()])
         self.salvar_button.grid(row=4, column=0, columnspan=2, padx=36, pady=10)
         self.salvar_button.place(relx=0.5, rely=0.9,relwidth=0.50, relheight=0.15, anchor='center')
 
@@ -56,7 +57,7 @@ class cadastroAbelhas:
             cursor.execute(("INSERT INTO abelhas (especie, nome_cientifico, localizacao, data_aquisicao, caixa) VALUES (%s, %s, %s, %s, %s)"),
                 (especie, nome_cientifico, localizacao, data_aquisicao, caixa)
             )
-            messagebox.showwarning("Aviso","Dados salvos com sucesso")
+            messagebox.showinfo("Aviso","Dados salvos com sucesso")
             conn.commit()
             self.nome_abelha_entry.delete(0, tk.END)
             self.especie_abelha_entry.delete(0, tk.END)

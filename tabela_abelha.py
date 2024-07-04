@@ -1,5 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
+import psycopg2
+import conector
+
+conn = conector.conn
+cursor = conn.cursor()
 
 class TreeviewAbelhas:
     def __init__(self, master):
@@ -20,3 +25,17 @@ class TreeviewAbelhas:
         self.lista_abelhas.column("#5", width=40)
 
         self.lista_abelhas.place(x=40, y=10, width=700, height=300)
+        self.scroolbar = tk.Scrollbar(self.master, orient='vertical', command=self.lista_abelhas.yview)
+        self.lista_abelhas.configure(yscrollcommand=self.scroolbar.set)
+        self.scroolbar.place(x=740, y=10, height=300)
+        self.carrega_dados_abelha()
+
+    def carrega_dados_abelha(self):
+        cursor.execute("SELECT especie, nome_cientifico, localizacao, TO_CHAR(data_aquisicao, 'DD/MM/YYYY') AS data_formatada, caixa FROM abelhas")
+        rows = cursor.fetchall()
+
+        for i in self.lista_abelhas.get_children():
+            self.lista_abelhas.delete(i)
+
+        for row in rows:
+            self.lista_abelhas.insert("", "end", values=row)
