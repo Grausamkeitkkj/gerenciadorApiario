@@ -54,14 +54,19 @@ class cadastroCaixas:
         if not numero_caixa or not especie or not material_caixa:
             messagebox.showwarning("Aviso","Por favor, complete todos os campos antes de salvar")
         else:
-            cursor.execute("INSERT INTO caixas (numero_caixa, especie, material_caixa) VALUES (%s, %s, %s)",
-                           (numero_caixa, especie, material_caixa))
-            conn.commit()
-            messagebox.showinfo("Aviso","Dados salvos com sucesso")
-            self.numero_caixa_entry.delete(0, tk.END)
-            self.especie_entry.delete(0, tk.END)
-            self.material_caixa_entry.delete(0, tk.END)
-
+            cursor.execute("SELECT id FROM abelhas WHERE especie = %s", (especie,))
+            abelha_id = cursor.fetchone()
+    
+            if abelha_id:
+                cursor.execute("INSERT INTO caixas (numero_caixa, especie_id, material_caixa) VALUES (%s, %s, %s)",
+                               (numero_caixa, abelha_id[0], material_caixa))
+                conn.commit()
+                messagebox.showinfo("Aviso","Dados salvos com sucesso")
+                self.numero_caixa_entry.delete(0, tk.END)
+                self.especie_entry.delete(0, tk.END)
+                self.material_caixa_entry.delete(0, tk.END)
+            else:
+                messagebox.showwarning("Aviso", "Espécie não encontrada.")
     def carrega_dados_combobox(self):
         cursor.execute("SELECT especie FROM abelhas")
         rows = cursor.fetchall()
