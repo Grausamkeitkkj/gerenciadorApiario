@@ -4,8 +4,6 @@ import tabelas
 from cadastroAbelhas import cadastroAbelhas
 from cadastroCaixas import cadastroCaixas
 from tabela_abelha import TreeviewAbelhas
-from conector import create_gui
-import tabelas
 
 if __name__ == "__main__":
     tabelas.criar_tabelas()
@@ -16,17 +14,19 @@ if __name__ == "__main__":
             self.root.title("Gerenciamento")
             self.root.configure(background="White")
             self.root.geometry("800x500")
-            TreeviewAbelhas(self.root)
             self.create_menu()
             self.root.mainloop()
     
         def create_menu(self):
             menubar = tk.Menu(self.root)
-            file_menu = tk.Menu(menubar, tearoff=0)
-            file_menu.add_command(label="Abelhas", command=self.chama_cadastro_abelhas)
-            file_menu.add_command(label="Caixas", command=self.chama_cadastro_caixas)
-            file_menu.add_command(label="Conectar", command=self.create_gui)
-            menubar.add_cascade(label="Cadastro", menu=file_menu)
+            menu_cadastro = tk.Menu(menubar, tearoff=0)
+            menu_relatorios = tk.Menu(menubar, tearoff=0)
+            menu_cadastro.add_command(label="Abelhas", command=self.chama_cadastro_abelhas)
+            menu_cadastro.add_command(label="Caixas", command=self.chama_cadastro_caixas)
+            menu_cadastro.add_command(label="Conectar")
+            menubar.add_cascade(label="Cadastro", menu=menu_cadastro)
+            menu_relatorios.add_command(label="Relatório de Abelhas", command=self.chama_relatorio_abelhas)
+            menubar.add_cascade(label="Relatórios", menu=menu_relatorios)
             self.root.config(menu=menubar)
             
         def chama_cadastro_abelhas(self):
@@ -34,9 +34,9 @@ if __name__ == "__main__":
         
         def chama_cadastro_caixas(self):
             cadastroCaixas(self.root) 
-
-        def create_gui(self):
-            create_gui()
+        
+        def chama_relatorio_abelhas(self):
+            TreeviewAbelhas(self.root)
     
     app = Application()
     

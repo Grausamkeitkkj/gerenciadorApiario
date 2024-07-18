@@ -1,0 +1,3 @@
+psycopg2==2.8.6
+tkcalendar==1.6.1
+dotenv==0.0.5

@@ -3,7 +3,7 @@ import conector
 import tkcalendar
 from tkinter import messagebox
 from tkinter import ttk
-from tabela_abelha import TreeviewAbelhas
+import datetime
 
 conn = conector.conn
 cursor = conn.cursor()
@@ -36,7 +36,7 @@ class cadastroAbelhas:
         self.data_aquisicao_datepicker = tkcalendar.DateEntry(self.new_window, date_pattern='dd/mm/yyyy', locale='pt_BR')
         self.data_aquisicao_datepicker.grid(row=3, column=1, padx=10, pady=10)
 
-        self.salvar_button = tk.Button(self.new_window, text="Salvar", command=lambda:[self.salvar_dados(), TreeviewAbelhas(self.parent).carrega_dados_abelha()])
+        self.salvar_button = tk.Button(self.new_window, text="Salvar", command=lambda:[self.salvar_dados()])
         self.salvar_button.grid(row=4, column=0, columnspan=2, padx=36, pady=10)
         self.salvar_button.place(relx=0.5, rely=0.9,relwidth=0.50, relheight=0.15, anchor='center')
 
@@ -45,12 +45,13 @@ class cadastroAbelhas:
         nome_cientifico = self.especie_abelha_entry.get()
         localizacao = self.localizacao_entry.get()
         data_aquisicao = self.data_aquisicao_datepicker.get()
+        data_aquisicao_sql = datetime.datetime.strptime(data_aquisicao, '%d/%m/%Y').strftime('%Y-%m-%d')
     
         if not especie or not nome_cientifico or not localizacao or not data_aquisicao:
             messagebox.showwarning("Aviso","Por favor, complete todos os campos antes de salvar")
         else:
             cursor.execute(("INSERT INTO abelhas (especie, nome_cientifico, localizacao, data_aquisicao) VALUES (%s, %s, %s, %s)"),
-                (especie, nome_cientifico, localizacao, data_aquisicao,)
+                (especie, nome_cientifico, localizacao, data_aquisicao_sql,)
             )
             messagebox.showinfo("Aviso","Dados salvos com sucesso")
             conn.commit()
