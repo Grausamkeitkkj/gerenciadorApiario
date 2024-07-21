@@ -36,7 +36,7 @@ class TreeviewAbelhas:
         self.lista_abelhas.place(x=40, y=40, width=700, height=300)
         
         self.scroolbar = tk.Scrollbar(self.new_window, orient='vertical', command=self.lista_abelhas.yview)
-        self.scroolbar.place(x=740, y=10, height=300)
+        self.scroolbar.place(x=740, y=40, height=300)
         self.lista_abelhas.configure(yscrollcommand=self.scroolbar.set)
 
         self.label_informativo = tk.Label(self.new_window, text="Listagem Abelhas", font=(14), bg="white")
@@ -47,6 +47,9 @@ class TreeviewAbelhas:
 
         self.cadastrar_button = tk.Button(self.new_window, text="Cadastrar", command=self.chama_cadastro_abelhas)
         self.cadastrar_button.place(x=160, y=350, width=100, height=30)
+
+        self.atualizar_button = tk.Button(self.new_window, text="Atualizar", command=self.carrega_dados_abelha)
+        self.atualizar_button.place(x=280, y=350, width=100, height=30)
 
         self.carrega_dados_abelha()
 
@@ -64,12 +67,13 @@ class TreeviewAbelhas:
         if not self.lista_abelhas.selection():
             messagebox.showwarning("Aviso", "Por favor, selecione um item para apagar")
         elif messagebox.askokcancel("Confirmação", "Deseja realmente apagar o item selecionado?"):
-            item = self.lista_abelhas.selection()[0]
-            id = self.lista_abelhas.item(item, 'values')[0]
-            cursor.execute("DELETE FROM caixas WHERE especie_id = %s", (id,))
-            cursor.execute("DELETE FROM abelhas WHERE id = %s", (id,))
+            for each_item in self.lista_abelhas.selection():
+                id = self.lista_abelhas.item(each_item, 'values')[0]
+                cursor.execute("DELETE FROM caixas WHERE especie_id = %s", (id,))
+                cursor.execute("DELETE FROM abelhas WHERE id = %s", (id,))
             conn.commit()
             self.carrega_dados_abelha()
 
     def chama_cadastro_abelhas(self):
         cadastroAbelhas(self.new_window)
+        self.carrega_dados_abelha()

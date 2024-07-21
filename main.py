@@ -11,6 +11,7 @@ if __name__ == "__main__":
     class Application:
         def __init__(self):
             self.root = tk.Tk()
+            self.root.iconbitmap(r'C:\Users\User\Desktop\projetopai\gerenciadorApiario\bee.ico')
             self.root.title("Gerenciamento")
             self.root.configure(background="White")
             self.root.geometry("800x500")
@@ -23,7 +24,6 @@ if __name__ == "__main__":
             menu_relatorios = tk.Menu(menubar, tearoff=0)
             menu_cadastro.add_command(label="Abelhas", command=self.chama_cadastro_abelhas)
             menu_cadastro.add_command(label="Caixas", command=self.chama_cadastro_caixas)
-            menu_cadastro.add_command(label="Conectar")
             menubar.add_cascade(label="Cadastro", menu=menu_cadastro)
             menu_relatorios.add_command(label="Relatório de Abelhas", command=self.chama_relatorio_abelhas)
             menubar.add_cascade(label="Relatórios", menu=menu_relatorios)
