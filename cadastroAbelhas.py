@@ -41,6 +41,8 @@ class cadastroAbelhas:
         self.salvar_button.place(relx=0.5, rely=0.9,relwidth=0.50, relheight=0.15, anchor='center')
 
     def salvar_dados(self):
+        from tabela_abelha import TreeviewAbelhas
+
         especie = self.nome_abelha_entry.get()
         nome_cientifico = self.especie_abelha_entry.get()
         localizacao = self.localizacao_entry.get()
@@ -55,6 +57,7 @@ class cadastroAbelhas:
             )
             messagebox.showinfo("Aviso","Dados salvos com sucesso")
             conn.commit()
+            TreeviewAbelhas.carrega_dados_abelha(TreeviewAbelhas.lista_abelhas)
             self.nome_abelha_entry.delete(0, tk.END)
             self.especie_abelha_entry.delete(0, tk.END)
             self.localizacao_entry.delete(0, tk.END)
