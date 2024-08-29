@@ -1,10 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import conector
+from conector_do_DB import get_db_connection
 
-conn = conector.conn
-cursor = conn.cursor()
+conn, cursor = get_db_connection()
 
 class cadastroCaixas:
     def __init__(self, parent):

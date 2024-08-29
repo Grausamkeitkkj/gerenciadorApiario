@@ -1,11 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import psycopg2
-import conector
+from conector_do_DB import get_db_connection
 from cadastroAbelhas import cadastroAbelhas
 
-conn = conector.conn
-cursor = conn.cursor()
+conn, cursor = get_db_connection()
 
 class TreeviewAbelhas:
     def __init__(self, parent, dicionario, funcao):

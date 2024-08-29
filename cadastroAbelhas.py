@@ -1,12 +1,11 @@
 import tkinter as tk
-import conector
+from conector_do_DB import get_db_connection
 import tkcalendar
 from tkinter import messagebox
 from tkinter import ttk
 import datetime
 
-conn = conector.conn
-cursor = conn.cursor()
+conn, cursor = get_db_connection()
 
 class cadastroAbelhas:
     def __init__(self, parent, funcao):
