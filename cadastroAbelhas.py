@@ -9,7 +9,8 @@ conn = conector.conn
 cursor = conn.cursor()
 
 class cadastroAbelhas:
-    def __init__(self, parent):
+    def __init__(self, parent, funcao):
+        self.func = funcao
         self.parent = parent
         self.new_window = tk.Toplevel(parent)
         self.new_window.title("Cadastro de Abelhas")
@@ -57,7 +58,7 @@ class cadastroAbelhas:
             )
             messagebox.showinfo("Aviso","Dados salvos com sucesso")
             conn.commit()
-            TreeviewAbelhas.carrega_dados_abelha(TreeviewAbelhas.lista_abelhas)
+            self.func()
             self.nome_abelha_entry.delete(0, tk.END)
             self.especie_abelha_entry.delete(0, tk.END)
             self.localizacao_entry.delete(0, tk.END)

@@ -8,7 +8,9 @@ conn = conector.conn
 cursor = conn.cursor()
 
 class TreeviewAbelhas:
-    def __init__(self, parent):
+    def __init__(self, parent, dicionario, funcao):
+        dicionario["carregar_abelhas"]=self.carrega_dados_abelha
+        self.func = funcao
         self.parent = parent
         self.new_window = tk.Toplevel(parent)
         self.new_window.title("Cadastro de Abelhas")
@@ -75,5 +77,5 @@ class TreeviewAbelhas:
             self.carrega_dados_abelha()
 
     def chama_cadastro_abelhas(self):
-        cadastroAbelhas(self.new_window)
+        cadastroAbelhas(self.new_window, self.func)
         self.carrega_dados_abelha()

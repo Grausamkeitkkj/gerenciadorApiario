@@ -10,6 +10,7 @@ if __name__ == "__main__":
 
     class Application:
         def __init__(self):
+            self.dicionario = {}
             self.root = tk.Tk()
             self.root.iconbitmap(r'C:\Users\User\Desktop\projetopai\gerenciadorApiario\bee.ico')
             self.root.title("Gerenciamento")
@@ -30,13 +31,18 @@ if __name__ == "__main__":
             self.root.config(menu=menubar)
             
         def chama_cadastro_abelhas(self):
-            cadastroAbelhas(self.root)
+            cadastroAbelhas(self.root, self.tentar_chamar_funcao)
         
         def chama_cadastro_caixas(self):
             cadastroCaixas(self.root) 
         
         def chama_relatorio_abelhas(self):
-            TreeviewAbelhas(self.root)
+            TreeviewAbelhas(self.root, self.dicionario, self.tentar_chamar_funcao)
     
+        def tentar_chamar_funcao(self):
+            if self.dicionario.get("carregar_abelhas"):
+                self.dicionario["carregar_abelhas"]()
+
+
     app = Application()
     
