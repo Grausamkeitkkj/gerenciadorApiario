@@ -43,7 +43,6 @@ class TreeviewMel:
         self.lista_mel.column("#10", width=40)
         self.lista_mel.column("#11", width=40)
         self.lista_mel.column("#12", width=40)
-        
 
         self.lista_mel.place(x=40, y=40, width=700, height=300)
         
@@ -60,7 +59,7 @@ class TreeviewMel:
         self.carrega_dados_mel()
 
     def carrega_dados_mel(self):
-        cursor.execute("")
+        cursor.execute("SELECT * FROM mel WHERE data_recolhimento >= DATEADD(MONTH, -12, GETDATE()) ORDER BY data_recolhimento DESC LIMIT 12; ")
         rows = cursor.fetchall()
 
         for i in self.lista_mel.get_children():
@@ -68,17 +67,3 @@ class TreeviewMel:
 
         for row in rows:
             self.lista_mel.insert("", "end", values=row)
-
-    def apagar_abelha(self):
-        if not self.lista_mel.selection():
-            messagebox.showwarning("Aviso", "Por favor, selecione um item para apagar")
-        elif messagebox.askokcancel("Confirmação", "Deseja realmente apagar o item selecionado?"):
-            for each_item in self.lista_mel.selection():
-                id = self.lista_mel.item(each_item, 'values')[0]
-                cursor.execute()
-                cursor.execute()
-            conn.commit()
-            self.carrega_dados_abelha()
-
-    def chama_cadastro_mel(self):
-        pass

@@ -76,4 +76,4 @@ class TreeviewAbelhas:
 
     def chama_cadastro_abelhas(self):
         cadastroAbelhas(self.new_window, self.func)
-        self.carrega_dados_abelha()
+        
