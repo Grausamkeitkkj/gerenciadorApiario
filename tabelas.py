@@ -21,6 +21,15 @@ def criar_tabelas():
                 material_caixa VARCHAR(255),
                 FOREIGN KEY (especie_id) REFERENCES abelhas(id)
             );
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS mel (
+                id SERIAL PRIMARY KEY,
+                caixa_id INTEGER,
+                quantidade DOUBLE PRECISION,
+                data_recolhimento DATE,
+                FOREIGN KEY (caixa_id) REFERENCES caixas(id)
+            );
             """
         ]
         
