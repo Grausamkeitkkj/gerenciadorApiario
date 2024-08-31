@@ -4,6 +4,8 @@ import tabelas
 from cadastroAbelhas import cadastroAbelhas
 from cadastroCaixas import cadastroCaixas
 from tabela_abelha import TreeviewAbelhas
+from cadastro_producao import CadastroProducao
+from tabela_mel import TreeviewMel
 
 if __name__ == "__main__":
     tabelas.criar_tabelas()
@@ -41,8 +43,7 @@ if __name__ == "__main__":
             TreeviewAbelhas(self.root, self.dicionario, self.tentar_chamar_funcao)
 
         def chama_relatorio_mel(self):
-           pass
-
+           TreeviewMel(self.root)
     
         def tentar_chamar_funcao(self):
             if self.dicionario.get("carregar_abelhas"):

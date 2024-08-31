@@ -20,7 +20,6 @@ class TreeviewMel:
         self.lista_mel.heading("#3", text="")
         self.lista_mel.heading("#4", text="")
         self.lista_mel.heading("#5", text="")
-        self.lista_mel.heading("#6", text="")
 
         self.lista_mel.column("#0", width=1)
         self.lista_mel.column("#1", width=8)
