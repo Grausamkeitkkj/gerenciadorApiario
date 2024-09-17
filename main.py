@@ -45,6 +45,9 @@ if __name__ == "__main__":
 
         def chama_relatorio_mel(self):
            TreeviewMel(self.root)
+
+        def chama_cadastro_mel(self):
+            CadastroProducao(self.root)
     
         def tentar_chamar_funcao(self):
             if self.dicionario.get("carregar_abelhas"):
