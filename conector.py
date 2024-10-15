@@ -2,6 +2,7 @@ import os
 import psycopg2
 import tabelas
 from dotenv import load_dotenv
+from tkinter import messagebox
 
 load_dotenv()
 
@@ -21,4 +22,5 @@ try:
     )
     print("Conexão estabelecida com sucesso!")
 except Exception as e:
+    messagebox.showerror("Erro de Conexão", f"Erro ao conectar ao banco de dados: {e}")
     print("Erro ao conectar ao banco de dados:", e)
