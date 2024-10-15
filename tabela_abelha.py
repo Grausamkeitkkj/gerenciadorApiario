@@ -1,14 +1,14 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk
+import tkinter.messagebox as messagebox
 from conector_do_DB import get_db_connection
 from cadastroAbelhas import cadastroAbelhas
+import psycopg2
 
 conn, cursor = get_db_connection()
 
 class TreeviewAbelhas:
-    def __init__(self, parent, dicionario, funcao):
-        dicionario["carregar_abelhas"]=self.carrega_dados_abelha
-        self.func = funcao
+    def __init__(self, parent):
         self.parent = parent
         self.new_window = tk.Toplevel(parent)
         self.new_window.title("Cadastro de Abelhas")
@@ -45,12 +45,6 @@ class TreeviewAbelhas:
         self.apagar_button = tk.Button(self.new_window, text="Apagar", command=self.apagar_abelha)
         self.apagar_button.place(x=40, y=350, width=100, height=30)
 
-        self.cadastrar_button = tk.Button(self.new_window, text="Cadastrar", command=self.chama_cadastro_abelhas)
-        self.cadastrar_button.place(x=160, y=350, width=100, height=30)
-
-        self.atualizar_button = tk.Button(self.new_window, text="Atualizar", command=self.carrega_dados_abelha)
-        self.atualizar_button.place(x=280, y=350, width=100, height=30)
-
         self.carrega_dados_abelha()
 
     def carrega_dados_abelha(self):
@@ -64,16 +58,25 @@ class TreeviewAbelhas:
             self.lista_abelhas.insert("", "end", values=row)
 
     def apagar_abelha(self):
-        if not self.lista_abelhas.selection():
-            messagebox.showwarning("Aviso", "Por favor, selecione um item para apagar")
-        elif messagebox.askokcancel("Confirmação", "Deseja realmente apagar o item selecionado?"):
-            for each_item in self.lista_abelhas.selection():
-                id = self.lista_abelhas.item(each_item, 'values')[0]
-                cursor.execute("DELETE FROM caixas WHERE especie_id = %s", (id,))
-                cursor.execute("DELETE FROM abelhas WHERE id = %s", (id,))
-            conn.commit()
-            self.carrega_dados_abelha()
-
-    def chama_cadastro_abelhas(self):
-        cadastroAbelhas(self.new_window, self.func)
-        
+        try:
+            if not self.lista_abelhas.selection():
+                messagebox.showwarning("Aviso", "Por favor, selecione um item para apagar")
+            elif messagebox.askokcancel("Confirmação", "Deseja realmente apagar o item selecionado?"):
+                for each_item in self.lista_abelhas.selection():
+                    id = self.lista_abelhas.item(each_item, 'values')[0]
+                    cursor.execute("DELETE FROM caixas WHERE especie_id = %s", (id,))
+                    cursor.execute("DELETE FROM abelhas WHERE id = %s", (id,))
+                conn.commit()
+                self.carrega_dados_abelha()
+        except psycopg2.IntegrityError as e:
+            messagebox.showwarning("Aviso!", "Não é possível apagar o item selecionado porque ele está relacionado a outros registros.")
+            conn.rollback()
+        except psycopg2.OperationalError as e:
+            messagebox.showwarning("Aviso!", "Erro operacional no banco de dados. Verifique a conexão.")
+            conn.rollback()
+        except psycopg2.DatabaseError as e:
+            messagebox.showwarning("Aviso!", f"Ocorreu um erro no banco de dados: {e}")
+            conn.rollback()
+        except Exception as e:
+            messagebox.showwarning("Aviso!", f"Ocorreu um erro desconhecido: {e}")
+            conn.rollback()

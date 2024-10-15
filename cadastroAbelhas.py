@@ -8,8 +8,7 @@ import datetime
 conn, cursor = get_db_connection()
 
 class cadastroAbelhas:
-    def __init__(self, parent, funcao):
-        self.func = funcao
+    def __init__(self, parent):
         self.parent = parent
         self.new_window = tk.Toplevel(parent)
         self.new_window.title("Cadastro de Abelhas")

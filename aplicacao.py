@@ -40,21 +40,19 @@ class Application:
         
         
     def chama_cadastro_abelhas(self):
-        cadastroAbelhas(self.root, self.tentar_chamar_funcao)
+        cadastroAbelhas(self.roots)
     
     def chama_cadastro_caixas(self):
         cadastroCaixas(self.root) 
     
     def chama_relatorio_abelhas(self):
-        TreeviewAbelhas(self.root, self.dicionario, self.tentar_chamar_funcao)
+        TreeviewAbelhas(self.root)
+
     def chama_relatorio_mel(self):
        TreeviewMel(self.root)
+       
     def chama_cadastro_mel(self):
         CadastroProducao(self.root)
-
-    def tentar_chamar_funcao(self):
-        if self.dicionario.get("carregar_abelhas"):
-            self.dicionario["carregar_abelhas"]()
 
     tabelas.criar_tabelas()
     
