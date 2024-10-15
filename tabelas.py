@@ -23,11 +23,11 @@ def criar_tabelas():
             );
             """,
             """
-            CREATE TABLE IF NOT EXISTS mel (
+            CREATE TABLE IF NOT EXISTS producao_mel (
                 id SERIAL PRIMARY KEY,
-                caixa_id INTEGER,
                 quantidade DOUBLE PRECISION,
-                data_recolhimento DATE,
+                data_producao DATE,
+                caixa_id INTEGER,
                 FOREIGN KEY (caixa_id) REFERENCES caixas(id)
             );
             """

@@ -1,11 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
 import tabelas
-from cadastroAbelhas import cadastroAbelhas
-from cadastroCaixas import cadastroCaixas
+from cadastro_abelhas import cadastroAbelhas
+from cadastro_caixas import cadastroCaixas
 from tabela_abelha import TreeviewAbelhas
 from cadastro_producao import CadastroProducao
-from tabela_mel import TreeviewMel
+from tabela_producao import TreeviewMel
 
 class Application:
     def __init__(self):
@@ -40,7 +40,7 @@ class Application:
         
         
     def chama_cadastro_abelhas(self):
-        cadastroAbelhas(self.roots)
+        cadastroAbelhas(self.root)
     
     def chama_cadastro_caixas(self):
         cadastroCaixas(self.root) 

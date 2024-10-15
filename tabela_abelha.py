@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import tkinter.messagebox as messagebox
 from conector_do_DB import get_db_connection
-from cadastroAbelhas import cadastroAbelhas
+from cadastro_abelhas import cadastroAbelhas
 import psycopg2
 
 conn, cursor = get_db_connection()
@@ -26,7 +26,7 @@ class TreeviewAbelhas:
         self.lista_abelhas.heading("#6", text="Caixa")
 
         self.lista_abelhas.column("#0", width=1)
-        self.lista_abelhas.column("#1", width=8)
+        self.lista_abelhas.column("#1", width=0)
         self.lista_abelhas.column("#2", width=100)
         self.lista_abelhas.column("#3", width=120)
         self.lista_abelhas.column("#4", width=70)
