@@ -48,7 +48,8 @@ class cadastroCaixas:
             return
     
         if numero_caixa_int <= 0:
-            messagebox.showwarning("Aviso", "Número da Caixa deve ser um número maior que 0")  
+            messagebox.showwarning("Aviso", "Número da Caixa deve ser um número maior que 0")
+            return
     
         if not numero_caixa or not especie or not material_caixa:
             messagebox.showwarning("Aviso","Por favor, complete todos os campos antes de salvar")
